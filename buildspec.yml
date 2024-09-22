@@ -1,7 +1,4 @@
 version: 0.2
-env:
-    secrets-manager:
-      TOKEN: firstSecret:tokenForSonar
 phases:
   install:
     runtime-versions:
@@ -10,13 +7,13 @@ phases:
     commands:
 
 #Static Application Security Scan (SAST scan) using SonarCloud
-     - mvn verify sonar:sonar -Dsonar.projectKey=javaprojectaws -Dsonar.organization=javaprojectaws -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$TOKEN 
+     - mvn verify sonar:sonar -Dsonar.projectKey=devsecopjavaproject -Dsonar.organization=devsecopjavaproject -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=71b6d94b8c7f6b053e5f4e2f27b2a4481a3cf881 
 
 #Quality Gates for Static Application Security Scan(SAST) using SonarCloud
 
      - sleep 5
      - |- 
-        quality_status=$(curl -s -u $TOKEN: https://sonarcloud.io/api/qualitygates/project_status?projectKey=javaprojectaws | jq -r '.projectStatus.status')
+        quality_status=$(curl -s -u 71b6d94b8c7f6b053e5f4e2f27b2a4481a3cf881: https://sonarcloud.io/api/qualitygates/project_status?projectKey=javaprojectaws | jq -r '.projectStatus.status')
         echo "SonarCloud analysistatus is $quality_status"; 
 #        if [ $quality_status = "ERROR" ] ; then exit 1;fi
 
@@ -25,7 +22,7 @@ phases:
      - |-
           apt-get update
           apt-get -y install maven 
-          SNYK_TOKEN=2f4afa39-c493-4c6d-b34e-080c1a8f9014
+          SNYK_TOKEN=e942d5ed-1712-41b6-872a-cb382033023d
           export SNYK_TOKEN
           mvn snyk:test -fn 
 
